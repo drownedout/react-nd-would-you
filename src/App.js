@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from './actions/shared';
 import './App.css';
+import QuestionList from './components/questions/QuestionList'
 
 class App extends Component {
   componentDidMount() {
@@ -12,10 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Would You Rather?</h1>
-        {loading === true ?
-          null :
-          <h2></h2>
-        }
+        <QuestionList />
       </div>
     );
   }
