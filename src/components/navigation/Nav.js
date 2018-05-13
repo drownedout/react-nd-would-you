@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,27 +22,41 @@ const styles = {
   },
 };
 
-function Nav(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Title
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class Nav extends Component {
+  render(){
+    const { classes, authedUser } = this.props;
+    let authButton;
+    if(authedUser){
+      authButton = <Button color="inherit">Logout</Button>
+    } else {
+      authButton = <Button color="inherit">Login</Button>
+    }
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              Title
+            </Typography>
+            {authButton}
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
 Nav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Nav);
+function mapStateToProps ({ authedUser }) {
+  return {
+    authedUser
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Nav));
