@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from './actions/shared';
+import LoadingBar from 'react-redux-loading'
 import './App.css';
 import QuestionList from './components/questions/QuestionList'
 
@@ -12,8 +13,14 @@ class App extends Component {
     const { loading } = this.props;
     return (
       <div className="App">
+        <LoadingBar />
         <h1>Would You Rather?</h1>
-        <QuestionList />
+        {this.props.loading === true
+          ? null
+          : <div>
+              <QuestionList />
+            </div>
+        }
       </div>
     );
   }
