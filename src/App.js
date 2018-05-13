@@ -14,10 +14,10 @@ class App extends Component {
     const { loading } = this.props;
     return (
       <div className="App">
-        <LoadingBar />
         <Nav />
-        <h1>Would You Rather?</h1>
-        {this.props.loading === true
+        <LoadingBar />
+        <h1 className="App-title">Would You Rather?</h1>
+        {loading === true
           ? null
           : <div>
               <QuestionList />

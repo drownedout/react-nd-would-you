@@ -1,19 +1,79 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+
+const styles = {
+  card: {
+    minWidth: 275,
+    padding: '2rem 4rem',
+    textAlign: 'center'
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  button: {
+  	margin: '0 auto'
+  }
+};
 
 class QuestionItem extends Component {
 	render(){
-		const { question } = this.props
+		const { question, classes } = this.props
 		const { author, id, optionOne, optionTwo } = question
 		return (
 			<div>
-				<p>{question.author}</p>
-				<p>{question.optionOne.text}</p>
-				<p>{question.optionTwo.text}</p>
+				<Card className={classes.card}>
+					<Grid container spacing={24}>
+						<Grid item xs={12} sm={6}>
+					        <CardContent>
+						        <Typography gutterBottom variant="headline" component="h2">
+							        {optionOne.text}
+						        </Typography>
+						        <CardActions>
+							        <Button style={styles.button} size="small" variant="raised" color="primary">Vote</Button>
+						        </CardActions>
+					        </CardContent>
+				        </Grid>
+				        <Grid item xs={12} sm={6}>
+					        <CardContent>
+						        <Typography gutterBottom variant="headline" component="h2">
+							        {optionTwo.text}
+						        </Typography>
+						        <CardActions>
+							        <Button style={styles.button} size="small" variant="raised" color="secondary">Vote</Button>
+						        </CardActions>
+					        </CardContent>
+				        </Grid>
+				    </Grid>
+				    <Typography className={classes.title} color="textSecondary">
+				        Submitted By: {author}
+			        </Typography>
+			    </Card>
 			</div>
         )
 	}
 }
+
+QuestionItem.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 function mapStateToProps ({questions}, { id }) {
   const question = questions[id]
@@ -22,4 +82,4 @@ function mapStateToProps ({questions}, { id }) {
   }
 }
 
-export default connect(mapStateToProps)(QuestionItem);
+export default connect(mapStateToProps)(withStyles(styles)(QuestionItem));
