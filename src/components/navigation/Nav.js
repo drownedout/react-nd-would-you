@@ -41,6 +41,7 @@ class Nav extends Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               Title
             </Typography>
+            <Button color="inherit">Leaderboard</Button>
             {authButton}
           </Toolbar>
         </AppBar>

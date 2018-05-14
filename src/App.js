@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     const { loading } = this.props;
     return (
-      <div className="App">
+      <div>
         <Nav />
         <LoadingBar />
         <h1 className="App-title">Would You Rather?</h1>
