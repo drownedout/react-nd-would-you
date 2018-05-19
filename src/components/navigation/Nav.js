@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,6 +21,10 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  navlink: {
+    textDecoration: 'none',
+    color: '#fff'
+  }
 };
 
 class Nav extends Component {
@@ -39,9 +44,11 @@ class Nav extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Title
+              <NavLink to="/" exact className={classes.navlink}>Home</NavLink>
             </Typography>
-            <Button color="inherit">Leaderboard</Button>
+            <Button color="inherit">
+              <NavLink to="/leaderboard" exact className={classes.navlink}>Leaderboard</NavLink>
+            </Button>
             {authButton}
           </Toolbar>
         </AppBar>
