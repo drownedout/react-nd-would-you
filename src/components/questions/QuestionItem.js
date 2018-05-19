@@ -9,7 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import { handleAnswerQuestion } from '../../actions/questions';
 
 const styles = {
   card: {
@@ -39,9 +39,24 @@ const styles = {
 };
 
 class QuestionItem extends Component {
+
+	handleAnswerSubmit = (e, value) => {
+		e.preventDefault()
+
+		const { dispatch, question, authedUser } = this.props;
+		const { id } = question;
+		
+		console.log(value)
+		dispatch(handleAnswerQuestion({
+			qid: id,
+			authedUser: authedUser,
+			answer: value
+		}))
+	}
+
 	render(){
 		const { question, user, classes } = this.props
-		const { author, id, optionOne, optionTwo } = question
+		const { author, optionOne, optionTwo } = question
 		return (
 			<div>
 				<Card className={classes.card}>
@@ -52,7 +67,14 @@ class QuestionItem extends Component {
 							        {optionOne.text}
 						        </Typography>
 						        <CardActions>
-							        <Button style={styles.button} size="small" variant="raised" color="primary">Vote</Button>
+							        <Button 
+							        	style={styles.button} 
+							        	size="small" 
+							        	onClick={(e) => this.handleAnswerSubmit(e, "optionOne")} 
+							        	variant="raised" 
+							        	color="primary">
+							        	Vote
+							        </Button>
 						        </CardActions>
 					        </CardContent>
 				        </Grid>
@@ -62,7 +84,14 @@ class QuestionItem extends Component {
 							        {optionTwo.text}
 						        </Typography>
 						        <CardActions>
-							        <Button style={styles.button} size="small" variant="raised" color="secondary">Vote</Button>
+							        <Button 
+							        	style={styles.button} 
+							        	onClick={(e) => this.handleAnswerSubmit(e, "optionTwo")} 
+							        	size="small" 
+							        	variant="raised" 
+							        	color="secondary">
+							        	Vote
+							        </Button>
 						        </CardActions>
 					        </CardContent>
 				        </Grid>
@@ -81,13 +110,14 @@ QuestionItem.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps ({questions, users}, { id }) {
+function mapStateToProps ({questions, users, authedUser}, { id }) {
   const question = questions[id]
   const user = users[question.author]
 
   return {
     question: question,
-    user: user
+    user: user,
+    authedUser
   }
 }
 
