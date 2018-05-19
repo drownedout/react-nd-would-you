@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
@@ -30,12 +31,16 @@ const styles = {
   },
   button: {
   	margin: '0 auto'
+  },
+  avatar: {
+  	display: 'inline-block',
+  	margin: '.5rem 0'
   }
 };
 
 class QuestionItem extends Component {
 	render(){
-		const { question, classes } = this.props
+		const { question, user, classes } = this.props
 		const { author, id, optionOne, optionTwo } = question
 		return (
 			<div>
@@ -62,6 +67,7 @@ class QuestionItem extends Component {
 					        </CardContent>
 				        </Grid>
 				    </Grid>
+				    <Avatar alt={user.name} src={user.avatarURL} className={classes.avatar} />
 				    <Typography className={classes.title} color="textSecondary">
 				        Submitted By: {author}
 			        </Typography>
@@ -75,10 +81,13 @@ QuestionItem.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps ({questions}, { id }) {
+function mapStateToProps ({questions, users}, { id }) {
   const question = questions[id]
+  const user = users[question.author]
+
   return {
-    question: question
+    question: question,
+    user: user
   }
 }
 
