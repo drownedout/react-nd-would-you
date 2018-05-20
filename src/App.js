@@ -7,6 +7,7 @@ import './App.css';
 import Nav from './components/navigation/Nav'
 import QuestionList from './components/questions/QuestionList';
 import QuestionPage from './components/questions/QuestionPage';
+import QuestionNew from './components/questions/QuestionNew';
 import Leaderboard from './components/leaderboard/Leaderboard';
 
 class App extends Component {
@@ -26,7 +27,8 @@ class App extends Component {
             : <div>
                 <Route path ='/' exact component={QuestionList}/>
                 <Route path='/leaderboard' component={Leaderboard} />
-                <Route path='/questions/:id' component={QuestionPage} />
+                <Route path='/questions/:id' exact component={QuestionPage} />
+                <Route path='/new' exact component={QuestionNew} />
               </div>
           }
         </div>
