@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
@@ -21,6 +22,9 @@ const styles = {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)',
+  },
+  link: {
+  	textDecoration: 'none'
   },
   title: {
     marginBottom: 16,
@@ -55,47 +59,49 @@ class QuestionItem extends Component {
 	}
 
 	render(){
-		const { question, user, classes } = this.props
+		const { id, question, user, classes } = this.props
 		const { author, optionOne, optionTwo } = question
 		return (
 			<div>
 				<Card className={classes.card}>
-					<Grid container spacing={24}>
-						<Grid item xs={12} sm={6}>
-					        <CardContent>
-						        <Typography gutterBottom variant="headline" component="h2">
-							        {optionOne.text}
-						        </Typography>
-						        <CardActions>
-							        <Button 
-							        	style={styles.button} 
-							        	size="small" 
-							        	onClick={(e) => this.handleAnswerSubmit(e, "optionOne")} 
-							        	variant="raised" 
-							        	color="primary">
-							        	Vote
-							        </Button>
-						        </CardActions>
-					        </CardContent>
-				        </Grid>
-				        <Grid item xs={12} sm={6}>
-					        <CardContent>
-						        <Typography gutterBottom variant="headline" component="h2">
-							        {optionTwo.text}
-						        </Typography>
-						        <CardActions>
-							        <Button 
-							        	style={styles.button} 
-							        	onClick={(e) => this.handleAnswerSubmit(e, "optionTwo")} 
-							        	size="small" 
-							        	variant="raised" 
-							        	color="secondary">
-							        	Vote
-							        </Button>
-						        </CardActions>
-					        </CardContent>
-				        </Grid>
-				    </Grid>
+					<Link to={`/questions/${id}`} style={styles.link}>
+						<Grid container spacing={24}>
+							<Grid item xs={12} sm={6}>
+						        <CardContent>
+							        <Typography gutterBottom variant="headline" component="h2">
+								        {optionOne.text}
+							        </Typography>
+							        <CardActions>
+								        <Button 
+								        	style={styles.button} 
+								        	size="small" 
+								        	onClick={(e) => this.handleAnswerSubmit(e, "optionOne")} 
+								        	variant="raised" 
+								        	color="primary">
+								        	Vote
+								        </Button>
+							        </CardActions>
+						        </CardContent>
+					        </Grid>
+					        <Grid item xs={12} sm={6}>
+						        <CardContent>
+							        <Typography gutterBottom variant="headline" component="h2">
+								        {optionTwo.text}
+							        </Typography>
+							        <CardActions>
+								        <Button 
+								        	style={styles.button} 
+								        	onClick={(e) => this.handleAnswerSubmit(e, "optionTwo")} 
+								        	size="small" 
+								        	variant="raised" 
+								        	color="secondary">
+								        	Vote
+								        </Button>
+							        </CardActions>
+						        </CardContent>
+					        </Grid>
+					    </Grid>
+				    </Link>
 				    <Avatar alt={user.name} src={user.avatarURL} className={classes.avatar} />
 				    <Typography className={classes.title} color="textSecondary">
 				        Submitted By: {author}
