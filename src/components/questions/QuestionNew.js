@@ -8,7 +8,8 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import CardActions from '@material-ui/core/CardActions'
+import CardActions from '@material-ui/core/CardActions';
+import { handleSaveQuestion } from '../../actions/questions';
 
 const styles = theme => ({
   container: {
@@ -31,6 +32,34 @@ const styles = theme => ({
 });
 
 class QuestionNew extends Component {
+
+	state = {
+		optionOne: '',
+		optionTwo: ''
+	}
+
+	handleChange = e => {
+	    const { name, value } = e.target
+	    this.setState(() => ({
+	      [name]: value
+	    }))
+	    console.log(this.state)
+	 }
+
+	handleSubmit = e => {
+		e.preventDefault()
+
+		const {dispatch, authedUser} = this.props
+
+		dispatch(handleSaveQuestion({
+			author: this.props.authedUser,
+			optionOneText: this.state.optionOne,
+			optionTwoText: this.state.optionTwo
+		}))
+
+		this.props.history.push("/")
+	}
+
 	render(){
 		const { classes } = this.props;
 
@@ -38,7 +67,11 @@ class QuestionNew extends Component {
 			<Grid item xs={8} style={{margin: '0 auto'}}>
 				<Card className={classes.card}>
 						<Grid container spacing={24}>
-							<form className={classes.container} noValidate autoComplete="off">
+							<form 
+								className={classes.container}  
+								autoComplete="off" 
+								onSubmit={this.handleSubmit}
+							>
 								<Typography
 				                  color="primary"
 				                  variant="display1"
@@ -47,19 +80,31 @@ class QuestionNew extends Component {
 				                </Typography>
 								<TextField
 								  id="name"
+								  name="optionOne"
 								  label="Option One"
 								  className={classes.textField}
 								  margin="normal"
+								  onChange={this.handleChange}
+								  value={this.state.optionOne}
 								/>
 								<TextField
 								  id="name"
+								  name="optionTwo"
 								  label="Option Two"
 								  className={classes.textField}
-								  marginBottom="normal"
+								  margin="normal"
+								  onChange={this.handleChange}
+								  value={this.state.optionTwo}
 								/>
 								<Divider />
 								<CardActions className={classes.cardAction}>
-									<Button size="large" variant="raised" color="secondary" aria-label="add" className={classes.button}>
+									<Button 
+										size="large" 
+										variant="raised" 
+										color="secondary" 
+										aria-label="add" 
+										type="submit"
+										className={classes.button}>
 							          Add Question
 							        </Button>
 						        </CardActions>
@@ -78,4 +123,4 @@ function mapStateToProps({ authedUser }){
 	}
 }
 
-export default connect()(withStyles(styles)(QuestionNew));
+export default connect(mapStateToProps)(withStyles(styles)(QuestionNew));
