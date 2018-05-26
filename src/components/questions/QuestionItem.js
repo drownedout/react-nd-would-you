@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { handleAnswerQuestion } from '../../actions/questions';
+import { calculatePercentage } from '../../utils/helpers';
 
 const styles = {
   card: {
@@ -34,7 +35,13 @@ const styles = {
     marginBottom: 12,
   },
   button: {
-  	margin: '0 auto'
+  	margin: '0 auto',
+  	display: 'block'
+  },
+  voteText: {
+  	display: 'block',
+  	textAlign: 'center',
+  	margin: '1rem auto'
   },
   avatar: {
   	display: 'inline-block',
@@ -59,48 +66,92 @@ class QuestionItem extends Component {
 	}
 
 	render(){
-		const { id, question, user, classes } = this.props
+		const { id, question, user, classes, isAnswered } = this.props
 		const { author, optionOne, optionTwo } = question
 		return (
 			<div>
 				<Card className={classes.card}>
 					<Link to={`/questions/${id}`} style={styles.link}>
-						<Grid container spacing={24}>
-							<Grid item xs={12} sm={6}>
-						        <CardContent>
-							        <Typography gutterBottom variant="headline" component="h2">
-								        {optionOne.text}
-							        </Typography>
-							        <CardActions>
-								        <Button 
-								        	style={styles.button} 
-								        	size="small" 
-								        	onClick={(e) => this.handleAnswerSubmit(e, "optionOne")} 
-								        	variant="raised" 
-								        	color="primary">
-								        	Vote
-								        </Button>
-							        </CardActions>
-						        </CardContent>
-					        </Grid>
-					        <Grid item xs={12} sm={6}>
-						        <CardContent>
-							        <Typography gutterBottom variant="headline" component="h2">
-								        {optionTwo.text}
-							        </Typography>
-							        <CardActions>
-								        <Button 
-								        	style={styles.button} 
-								        	onClick={(e) => this.handleAnswerSubmit(e, "optionTwo")} 
-								        	size="small" 
-								        	variant="raised" 
-								        	color="secondary">
-								        	Vote
-								        </Button>
-							        </CardActions>
-						        </CardContent>
-					        </Grid>
-					    </Grid>
+							{isAnswered && (
+								<Grid container spacing={24}>
+									<Grid item xs={12} sm={6}>
+								        <CardContent>
+									        <Typography gutterBottom variant="headline" component="h2">
+										        {optionOne.text}
+									        </Typography>
+									        <CardActions>
+										        <Button
+										        	style={styles.button} 
+										        	size="small" 
+										        	variant="raised" 
+										        	color="primary">
+										        	{calculatePercentage(question, "optionOne")}%
+										        </Button>
+										        <Typography style={styles.voteText}>
+										        	{optionOne.votes.length} total votes
+										        </Typography>
+									        </CardActions>
+								        </CardContent>
+								    </Grid>
+								    <Grid item xs={12} sm={6}>
+								        <CardContent>
+									        <Typography gutterBottom variant="headline" component="h2">
+										        {optionTwo.text}
+									        </Typography>
+									        <CardActions>
+										        <Button 
+										        	style={styles.button} 
+										        	size="small"
+										        	variant="raised" 
+										        	color="secondary">
+										        	{calculatePercentage(question, "optionTwo")}%
+										        </Button>
+										        <Typography style={styles.voteText}>
+										        	{optionTwo.votes.length} total votes
+										        </Typography>
+									        </CardActions>
+								        </CardContent>
+								    </Grid>
+							    </Grid>
+							)}
+							{!isAnswered && (
+								<Grid container spacing={24}>
+									<Grid item xs={12} sm={6}>
+								        <CardContent>
+									        <Typography gutterBottom variant="headline" component="h2">
+										        {optionOne.text}
+									        </Typography>
+									        <CardActions>
+										        <Button 
+										        	style={styles.button} 
+										        	size="small" 
+										        	onClick={(e) => this.handleAnswerSubmit(e, "optionOne")} 
+										        	variant="raised" 
+										        	color="primary">
+										        	Vote
+										        </Button>
+									        </CardActions>
+								        </CardContent>
+								    </Grid>
+								    <Grid item xs={12} sm={6}>
+								        <CardContent>
+									        <Typography gutterBottom variant="headline" component="h2">
+										        {optionTwo.text}
+									        </Typography>
+									        <CardActions>
+										        <Button 
+										        	style={styles.button} 
+										        	onClick={(e) => this.handleAnswerSubmit(e, "optionTwo")} 
+										        	size="small" 
+										        	variant="raised" 
+										        	color="secondary">
+										        	Vote
+										        </Button>
+									        </CardActions>
+								        </CardContent>
+								    </Grid>
+							    </Grid>
+					        )}
 				    </Link>
 				    <Avatar alt={user.name} src={user.avatarURL} className={classes.avatar} />
 				    <Typography className={classes.title} color="textSecondary">
@@ -119,11 +170,19 @@ QuestionItem.propTypes = {
 function mapStateToProps ({questions, users, authedUser}, { id }) {
   const question = questions[id]
   const user = users[question.author]
+  let isAnswered
+
+  if (question){
+  	const {optionOne, optionTwo} = question;
+  	isAnswered = optionOne.votes.includes(authedUser) ||
+  				 	   optionTwo.votes.includes(authedUser)
+  }
 
   return {
     question: question,
     user: user,
-    authedUser
+    authedUser,
+    isAnswered,
   }
 }
 

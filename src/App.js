@@ -9,13 +9,14 @@ import QuestionList from './components/questions/QuestionList';
 import QuestionPage from './components/questions/QuestionPage';
 import QuestionNew from './components/questions/QuestionNew';
 import Leaderboard from './components/leaderboard/Leaderboard';
+import AuthenticationList from './components/authentication/AuthenticationList'
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
   render() {
-    const { loading } = this.props;
+    const { loading, isAuthenticated } = this.props;
     return (
       <Router>
         <div>
@@ -25,10 +26,17 @@ class App extends Component {
           {loading === true
             ? null
             : <div>
-                <Route path ='/' exact component={QuestionList}/>
-                <Route path='/leaderboard' component={Leaderboard} />
-                <Route path='/questions/:id' exact component={QuestionPage} />
-                <Route path='/new' exact component={QuestionNew} />
+                {isAuthenticated === true
+                  ? <div>
+                      <Route path='/' exact component={QuestionList}/>
+                      <Route path='/leaderboard' component={Leaderboard} />
+                      <Route path='/questions/:id' exact component={QuestionPage} />
+                      <Route path='/new' exact component={QuestionNew} />
+                    </div>
+                  :<div>
+                      <Route component={AuthenticationList} />
+                  </div>
+                }
               </div>
           }
         </div>
@@ -37,9 +45,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ authedUser, questions }) {
   return {
-    loading: authedUser === null
+    isAuthenticated: authedUser !== null,
+    loading: questions === null
   }
 }
 

@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { unsetAuthedUser } from '../../actions/auth';
 
 const styles = {
   root: {
@@ -28,11 +29,18 @@ const styles = {
 };
 
 class Nav extends Component {
+  handleLogout = () => {
+    const { dispatch } = this.props
+
+    dispatch(unsetAuthedUser())
+
+  }
+
   render(){
     const { classes, authedUser } = this.props;
     let authButton;
     if(authedUser){
-      authButton = <Button color="inherit">Logout</Button>
+      authButton = <Button color="inherit" onClick = {() => this.handleLogout()}>Logout</Button>
     } else {
       authButton = <Button color="inherit">Login</Button>
     }
