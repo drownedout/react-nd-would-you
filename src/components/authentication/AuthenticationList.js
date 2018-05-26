@@ -5,12 +5,16 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import { setAuthedUser } from '../../actions/auth';
 
 const styles = {
   root: {
     width: '80%',
-    margin: '1rem auto',
+    margin: '3rem auto',
     textAlign: 'center',
     maxWidth: 360,
     alignItems: 'center',
@@ -24,23 +28,28 @@ class AuthenticationList extends Component {
 	handleLogin = (id) => {
 		const { dispatch } = this.props;
 		dispatch(setAuthedUser(id))
+		this.props.history.push("/")
 	}
 
 	render(){
 		const { classes, users } = this.props;
 		return (
 			<div className={classes.root} styles={styles.root}>
-				<List>
-		          {this.props.userIds.map((id) => (
-		          	  <div 
-		          	  	key={id}
-		          	  	onClick ={() => this.handleLogin(id)}
-		          	  	>
-			              <User id={id}/>
-			              <Divider />
-		              </div>
-		          ))}
-		        </List>
+				<h2>Login</h2>
+				<Card>
+					<CardHeader title="Please login to continue" />
+					<List>
+			          {this.props.userIds.map((id) => (
+			          	  <div 
+			          	  	key={id}
+			          	  	onClick ={() => this.handleLogin(id)}
+			          	  	>
+				              <User id={id}/>
+				              <Divider />
+			              </div>
+			          ))}
+			        </List>
+		        </Card>
 	        </div>
         )
 	}

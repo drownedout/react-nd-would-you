@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 
 const styles = {
   userListItem: {
@@ -17,7 +18,7 @@ class User extends Component {
 	render(){
 		const { classes, user } = this.props;
 		return (
-			<ListItem className={classes.listItem} styles={styles.userListItem}>
+			<ListItem dense button className={classes.listItem} styles={styles.userListItem}>
 	          <Avatar alt={user.name} src={user.avatarURL} />
 	          <ListItemText primary={user.name} />
 	        </ListItem>
