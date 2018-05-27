@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -66,11 +67,25 @@ class QuestionItem extends Component {
 	}
 
 	render(){
-		const { id, question, user, classes, isAnswered } = this.props
+		const { id, question, user, classes, isAnswered, authedUser } = this.props
 		const { author, optionOne, optionTwo } = question
+
+		const selectedOptionStyle = {
+			optionOneHighlight: {
+			  borderBottom: `${optionOne.votes.includes(authedUser) ? "5px solid #3f51b5" : "none"}`,
+			},
+			optionTwoHighlight: {
+			  borderBottom: `${optionTwo.votes.includes(authedUser) ? "5px solid #f50057" : "none"}`,
+			},
+		}
+
 		return (
 			<div>
 				<Card className={classes.card}>
+					<CardHeader title="Would You Rather?"/> 
+					<Typography>
+				    	{optionOne.votes.length + optionTwo.votes.length} total votes
+				    </Typography>
 					<Link to={`/questions/${id}`} style={styles.link}>
 							{isAnswered && (
 								<Grid container spacing={24}>
@@ -79,14 +94,14 @@ class QuestionItem extends Component {
 									        <Typography gutterBottom variant="headline" component="h2">
 										        {optionOne.text}
 									        </Typography>
-									        <CardActions>
-										        <Button
+									        <CardActions style={selectedOptionStyle.optionOneHighlight}>
+										        <Typography
 										        	style={styles.button} 
 										        	size="small" 
 										        	variant="raised" 
 										        	color="primary">
 										        	{calculatePercentage(question, "optionOne")}%
-										        </Button>
+										        </Typography>
 										        <Typography style={styles.voteText}>
 										        	{optionOne.votes.length} total votes
 										        </Typography>
@@ -98,14 +113,14 @@ class QuestionItem extends Component {
 									        <Typography gutterBottom variant="headline" component="h2">
 										        {optionTwo.text}
 									        </Typography>
-									        <CardActions>
-										        <Button 
+									        <CardActions style={selectedOptionStyle.optionTwoHighlight}>
+										        <Typography 
 										        	style={styles.button} 
 										        	size="small"
 										        	variant="raised" 
 										        	color="secondary">
 										        	{calculatePercentage(question, "optionTwo")}%
-										        </Button>
+										        </Typography>
 										        <Typography style={styles.voteText}>
 										        	{optionTwo.votes.length} total votes
 										        </Typography>
