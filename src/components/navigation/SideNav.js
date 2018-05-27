@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Home, ExitToApp, Add, Compare, Chat } from '@material-ui/icons/';
+import { Home, ExitToApp, Add, Compare } from '@material-ui/icons/';
 import { unsetAuthedUser } from '../../actions/auth';
 
 const styles = {
@@ -48,7 +48,7 @@ class SideNav extends Component{
               </ListItem>
             </NavLink>
             <Divider />
-            <NavLink to="/new" exact style={styles.navLink}>
+            <NavLink to="/add" exact style={styles.navLink}>
               <ListItem button>
                 <Avatar>
                   <Add />

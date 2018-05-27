@@ -1,5 +1,11 @@
 import { QuestionFilter } from "../actions/filters";
 
+export function formatDate (timestamp) {
+  const d = new Date(timestamp)
+  const time = d.toLocaleTimeString('en-US')
+  return time.substr(0, 5) + time.slice(-2) + ' | ' + d.toLocaleDateString()
+}
+
 export const calculatePercentage = (question, option) => {
 	const { optionOne, optionTwo } = question;
 	const optionOneTotal = optionOne.votes.length;

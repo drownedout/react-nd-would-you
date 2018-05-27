@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom"
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
@@ -12,7 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { handleAnswerQuestion } from '../../actions/questions';
-import { calculatePercentage } from '../../utils/helpers';
+import { calculatePercentage, formatDate } from '../../utils/helpers';
 
 const styles = {
   card: {
@@ -20,20 +21,16 @@ const styles = {
     padding: '2rem 4rem',
     textAlign: 'center'
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   link: {
   	textDecoration: 'none'
   },
   title: {
-    marginBottom: 16,
+    marginBottom: 5,
     fontSize: 14,
   },
-  pos: {
-    marginBottom: 12,
+  subtitle: {
+  	fontSize: 10,
+  	marginBottom: 15
   },
   button: {
   	margin: '0 auto',
@@ -67,8 +64,8 @@ class QuestionItem extends Component {
 	}
 
 	render(){
-		const { id, question, user, classes, isAnswered, authedUser } = this.props
-		const { author, optionOne, optionTwo } = question
+		const { id, question, user, classes, isAnswered, authedUser, isLoading } = this.props
+		const { author, optionOne, optionTwo, timestamp } = question
 
 		const selectedOptionStyle = {
 			optionOneHighlight: {
@@ -78,6 +75,10 @@ class QuestionItem extends Component {
 			  borderBottom: `${optionTwo.votes.includes(authedUser) ? "5px solid #f50057" : "none"}`,
 			},
 		}
+
+		if (!isLoading && !question) {
+	      return <Redirect to="/404" />
+	    }
 
 		return (
 			<div>
@@ -167,6 +168,9 @@ class QuestionItem extends Component {
 				    <Avatar alt={user.name} src={user.avatarURL} className={classes.avatar} />
 				    <Typography className={classes.title} color="textSecondary">
 				        Submitted By: {author}
+			        </Typography>
+			        <Typography className={classes.subtitle} color="textSecondary" variant="subheading">
+				        {formatDate(timestamp)}
 			        </Typography>
 			    </Card>
 			</div>

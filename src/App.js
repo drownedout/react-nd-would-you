@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from './actions/shared';
 import LoadingBar from 'react-redux-loading'
@@ -9,7 +9,8 @@ import QuestionList from './components/questions/QuestionList';
 import QuestionPage from './components/questions/QuestionPage';
 import QuestionNew from './components/questions/QuestionNew';
 import Leaderboard from './components/leaderboard/Leaderboard';
-import AuthenticationList from './components/authentication/AuthenticationList'
+import AuthenticationList from './components/authentication/AuthenticationList';
+import MissingPage from './components/404/MissingPage'
 
 class App extends Component {
   componentDidMount() {
@@ -26,14 +27,18 @@ class App extends Component {
             ? null
             : <div>
                 {isAuthenticated === true
-                  ? <div>
+                  ? <Switch>
                       <Route path='/' exact component={QuestionList}/>
-                      <Route path='/leaderboard' component={Leaderboard} />
+                      <Route path='/leaderboard' exact component={Leaderboard} />
                       <Route path='/questions/:id' exact component={QuestionPage} />
-                      <Route path='/new' exact component={QuestionNew} />
-                    </div>
+                      <Route path='/add' exact component={QuestionNew} />
+                      <Route path='/404' component={MissingPage} />
+                    </Switch>
                   : <div>
-                      <Route component={AuthenticationList} />
+                      <Switch>
+                        <Route path='/' exact component={AuthenticationList} />
+                        <Route path='/404' component={MissingPage} />
+                      </Switch>
                     </div>
                 }
               </div>
