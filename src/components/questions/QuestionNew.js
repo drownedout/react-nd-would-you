@@ -49,14 +49,18 @@ class QuestionNew extends Component {
 		e.preventDefault()
 
 		const {dispatch, authedUser} = this.props
+		const {optionOne, optionTwo} = this.state
 
-		dispatch(handleSaveQuestion({
-			author: authedUser,
-			optionOneText: this.state.optionOne,
-			optionTwoText: this.state.optionTwo
-		}))
-
-		this.props.history.push("/")
+		if(optionOne && optionTwo) {
+			dispatch(handleSaveQuestion({
+				author: authedUser,
+				optionOneText: optionOne,
+				optionTwoText: optionTwo
+			}))
+			this.props.history.push("/")
+		} else {
+			alert('You need to put in values for each option!')
+		}
 	}
 
 	render(){
