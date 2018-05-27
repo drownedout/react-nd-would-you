@@ -17,7 +17,7 @@ class User extends Component {
 	render(){
 		const { classes, user } = this.props;
 		return (
-			<ListItem dense button className={classes.listItem} styles={styles.userListItem}>
+			<ListItem button className={classes.listItem} styles={styles.userListItem}>
 	          <Avatar alt={user.name} src={user.avatarURL} />
 	          <ListItemText primary={user.name} />
 	        </ListItem>

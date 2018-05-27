@@ -23,16 +23,16 @@ function MissingPage({classes, history}){
 	return (
 		<div>
 			<Card className={classes.card}>
-			<CardHeader title="Oh noooooo! Page Not Found!"/> 
+			<CardHeader title='Oh noooooo! Page Not Found!'/> 
 				<Grid container spacing={24}>
 			        <CardContent>
 				        <CardActions>
 					       <Button 
 					        	style={styles.button} 
-					        	size="large" 
-					        	onClick={() => history.push("/")} 
-					        	variant="raised" 
-					        	color="primary">
+					        	size='large' 
+					        	onClick={() => history.push('/')} 
+					        	variant='raised' 
+					        	color='primary'>
 					        	To Safety!
 					        </Button>
 				        </CardActions>

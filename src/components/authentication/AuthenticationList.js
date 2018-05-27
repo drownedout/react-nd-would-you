@@ -25,7 +25,7 @@ class AuthenticationList extends Component {
 	handleLogin = (id) => {
 		const { dispatch } = this.props;
 		dispatch(setAuthedUser(id))
-		this.props.history.push("/")
+		this.props.history.push('/')
 	}
 
 	render(){
@@ -34,7 +34,7 @@ class AuthenticationList extends Component {
 			<div className={classes.root} styles={styles.root}>
 				<h2>Login</h2>
 				<Card>
-					<CardHeader title="Please login to continue" />
+					<CardHeader title='Please login to continue' />
 					<List>
 			          {this.props.userIds.map((id) => (
 			          	  <div 

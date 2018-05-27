@@ -1,7 +1,7 @@
 import {
   _saveQuestion,
   _saveQuestionAnswer,
-} from "../utils/_DATA" 
+} from '../utils/_DATA'
 
 export const RECEIVE_QUESTIONS= 'RECEIVE_QUESTIONS'
 export const HANDLE_ADD_QUESTION = 'HANDLE_ADD_QUESTION'

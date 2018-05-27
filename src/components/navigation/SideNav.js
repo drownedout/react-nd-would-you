@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -24,7 +24,7 @@ class SideNav extends Component{
     handleLogout = () => {
       const { dispatch } = this.props
       dispatch(unsetAuthedUser())
-      this.props.history.push("/")
+      return <Redirect to="/" />
     }
     render(){
       return (

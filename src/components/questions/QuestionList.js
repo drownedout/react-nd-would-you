@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
-import { Paper, Tabs, Tab } from "@material-ui/core"
-import { filterQuestions } from "../../utils/helpers"
+import { Paper, Tabs, Tab } from '@material-ui/core'
+import { filterQuestions } from '../../utils/helpers'
 import { QuestionFilter, toggleFilter } from '../../actions/filters'
 
 const style = {

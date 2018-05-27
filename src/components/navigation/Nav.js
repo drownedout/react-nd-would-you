@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom"
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,8 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Drawer from '@material-ui/core/Drawer';
-import SideNav from './SideNav'
-import { NAV_STATE, toggleSideNav } from "../../actions/navigation"
+import SideNav from './SideNav';
+import { NAV_STATE, toggleSideNav } from '../../actions/navigation';
 
 const styles = {
   root: {
@@ -53,6 +54,7 @@ class Nav extends Component {
   render(){
     const { classes, authedUser, currentUser, navOpen } = this.props;
     let authButton, drawer, menuIcon;
+    
     if(authedUser){
       authButton = (
         <div style={styles.authContainer}>
