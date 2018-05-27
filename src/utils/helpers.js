@@ -1,3 +1,5 @@
+import { QuestionFilter } from "../actions/filters";
+
 export const calculatePercentage = (question, option) => {
 	const { optionOne, optionTwo } = question;
 	const optionOneTotal = optionOne.votes.length;
@@ -9,4 +11,28 @@ export const calculatePercentage = (question, option) => {
 	}
 
 	return Math.round(question[option].votes.length / totalVotes * 100)
+}
+
+export const filterQuestions = (authedUser, questions, filter) => {
+	if (filter === QuestionFilter.ANSWERED){
+		return (
+			Object.keys(questions).filter(qid => (
+				questions[qid].optionOne.votes.includes(authedUser) ||
+				questions[qid].optionTwo.votes.includes(authedUser)
+			))
+		)
+	}
+	else if (filter === QuestionFilter.UNANSWERED){
+		return (
+			Object.keys(questions).filter(qid => (
+				!questions[qid].optionOne.votes.includes(authedUser) &&
+				!questions[qid].optionTwo.votes.includes(authedUser)
+			))
+		)
+	}
+	else {
+		return (
+			Object.keys(questions)
+		)
+	}
 }

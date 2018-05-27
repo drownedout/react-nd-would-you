@@ -22,7 +22,6 @@ class App extends Component {
         <div>
           <Nav />
           <LoadingBar />
-          <h1 className="App-title">Would You Rather?</h1>
           {loading === true
             ? null
             : <div>

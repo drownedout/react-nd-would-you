@@ -2,7 +2,6 @@ import {
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
-  _deleteQuestion
 } from "../utils/_DATA"
 
 export const RECEIVE_QUESTIONS= 'RECEIVE_QUESTIONS'
