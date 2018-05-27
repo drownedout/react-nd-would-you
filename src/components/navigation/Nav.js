@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Drawer from '@material-ui/core/Drawer';
 import SideNav from './SideNav'
+import { NAV_STATE, toggleSideNav } from "../../actions/navigation"
 
 const styles = {
   root: {
@@ -44,18 +45,14 @@ const styles = {
 };
 
 class Nav extends Component {
-  state = {
-    left: false
-  };
 
-  toggleDrawer = (side, open) => () => {
-    this.setState({
-      [side]: open,
-    });
-  };
-
+  handleNavToggle = () => {
+    const { dispatch } = this.props
+      dispatch(toggleSideNav())
+  }
+  
   render(){
-    const { classes, authedUser, currentUser } = this.props;
+    const { classes, authedUser, currentUser, navOpen } = this.props;
     let authButton;
     if(authedUser){
       authButton = (
@@ -70,12 +67,12 @@ class Nav extends Component {
 
     return (
       <div className={classes.root}>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <Drawer anchor="left" open={navOpen} onClose={this.handleNavToggle}>
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
+            onClick={this.handleNavToggle}
+            onKeyDown={this.handleNavToggle}
           >
             <SideNav />
           </div>
@@ -83,7 +80,7 @@ class Nav extends Component {
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon onClick={this.toggleDrawer('left', true)}/>
+              <MenuIcon onClick={this.handleNavToggle}/>
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
             </Typography>
@@ -99,11 +96,12 @@ Nav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps ({ authedUser, users }) {
+function mapStateToProps ({ authedUser, users, navigation }) {
   const currentUser = users[authedUser]
   return {
     authedUser,
-    currentUser
+    currentUser,
+    navOpen: navigation === NAV_STATE.OPEN
   }
 }
 
