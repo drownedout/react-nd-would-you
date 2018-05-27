@@ -35,10 +35,7 @@ class App extends Component {
                       <Route path='/404' component={MissingPage} />
                     </Switch>
                   : <div>
-                      <Switch>
-                        <Route path='/' exact component={AuthenticationList} />
-                        <Route path='/404' component={MissingPage} />
-                      </Switch>
+                        <Route component={AuthenticationList} />
                     </div>
                 }
               </div>

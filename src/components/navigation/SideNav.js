@@ -24,6 +24,7 @@ class SideNav extends Component{
     handleLogout = () => {
       const { dispatch } = this.props
       dispatch(unsetAuthedUser())
+      this.props.history.push("/")
     }
     render(){
       return (

@@ -52,8 +52,7 @@ class Nav extends Component {
   
   render(){
     const { classes, authedUser, currentUser, navOpen } = this.props;
-    let authButton;
-    
+    let authButton, drawer, menuIcon;
     if(authedUser){
       authButton = (
         <div style={styles.authContainer}>
@@ -61,12 +60,7 @@ class Nav extends Component {
           <Typography style={styles.userName}>{currentUser.name}</Typography>
         </div>
       )
-    } else {
-      authButton = <Button color="inherit">Login</Button>
-    }
-
-    return (
-      <div className={classes.root}>
+      drawer = (
         <Drawer anchor="left" open={navOpen} onClose={this.handleNavToggle}>
           <div
             tabIndex={0}
@@ -77,10 +71,23 @@ class Nav extends Component {
             <SideNav />
           </div>
         </Drawer>
+      )
+      menuIcon = (
+        <MenuIcon onClick={this.handleNavToggle}/>
+      )
+    } else {
+      authButton = <Button color="inherit">Login</Button>
+      drawer = <div></div>
+      menuIcon = <div></div>
+    }
+
+    return (
+      <div className={classes.root}>
+        {drawer}
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon onClick={this.handleNavToggle}/>
+              {menuIcon}
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
             </Typography>
