@@ -3,7 +3,7 @@
 ![Login](screenshots/login.png "Login")
 ![Index](screenshots/index.png "Index")
 ![New](screenshots/new.png "New")
-![Leaderboard](screenshots/index.png "Leaderboard")
+![Leaderboard](screenshots/leaderboard.png "Leaderboard")
 
 ## Getting Started
 
