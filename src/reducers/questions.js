@@ -10,10 +10,10 @@ export default function questions(state={}, action){
 		case HANDLE_ADD_QUESTION:
 			return {
 				...state,
-				[action.info.id]: action.info
+				[action.question.id]: action.question
 			}
 		case HANDLE_ADD_ANSWER:
-			const { answer, qid, authedUser } = action.info
+			const { answer, qid, authedUser } = action.answer
 			const question = state[qid]
 			return {
 				...state,

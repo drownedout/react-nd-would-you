@@ -8,4 +8,3 @@ export default function navigation(state=NAV_STATE.CLOSED, action){
 			return state
 	}
 }
-

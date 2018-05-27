@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -54,6 +53,7 @@ class Nav extends Component {
   render(){
     const { classes, authedUser, currentUser, navOpen } = this.props;
     let authButton;
+    
     if(authedUser){
       authButton = (
         <div style={styles.authContainer}>

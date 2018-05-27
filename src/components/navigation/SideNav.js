@@ -39,15 +39,6 @@ class SideNav extends Component{
               </ListItem>
             </NavLink>
             <Divider />
-            <NavLink to="/" exact style={styles.navLink}>
-              <ListItem button>
-                <Avatar>
-                  <Chat />
-                </Avatar>
-                <ListItemText primary="Questions" />
-              </ListItem>
-            </NavLink>
-            <Divider />
             <NavLink to="/leaderboard" exact style={styles.navLink}>
               <ListItem button>
                 <Avatar>

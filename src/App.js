@@ -32,9 +32,9 @@ class App extends Component {
                       <Route path='/questions/:id' exact component={QuestionPage} />
                       <Route path='/new' exact component={QuestionNew} />
                     </div>
-                  :<div>
+                  : <div>
                       <Route component={AuthenticationList} />
-                  </div>
+                    </div>
                 }
               </div>
           }

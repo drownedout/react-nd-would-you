@@ -1,12 +1,6 @@
-import {
-  TOGGLE_FILTER,
-  QuestionFilter,
-} from "../actions/filters"
+import { TOGGLE_FILTER, QuestionFilter } from "../actions/filters"
 
-const filter = (
-  state = QuestionFilter.UNANSWERED,
-  action
-) => {
+export default function filter( state = QuestionFilter.UNANSWERED, action ){
   switch (action.type) {
     case TOGGLE_FILTER:
       return action.filter
@@ -14,5 +8,3 @@ const filter = (
       return state
   }
 }
-
-export default filter;

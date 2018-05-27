@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import User from '../users/User';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import { setAuthedUser } from '../../actions/auth';
 
 const styles = {
@@ -32,7 +29,7 @@ class AuthenticationList extends Component {
 	}
 
 	render(){
-		const { classes, users } = this.props;
+		const { classes } = this.props;
 		return (
 			<div className={classes.root} styles={styles.root}>
 				<h2>Login</h2>

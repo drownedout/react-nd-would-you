@@ -96,9 +96,7 @@ class QuestionItem extends Component {
 									        </Typography>
 									        <CardActions style={selectedOptionStyle.optionOneHighlight}>
 										        <Typography
-										        	style={styles.button} 
-										        	size="small" 
-										        	variant="raised" 
+										        	style={styles.button}
 										        	color="primary">
 										        	{calculatePercentage(question, "optionOne")}%
 										        </Typography>
@@ -115,9 +113,7 @@ class QuestionItem extends Component {
 									        </Typography>
 									        <CardActions style={selectedOptionStyle.optionTwoHighlight}>
 										        <Typography 
-										        	style={styles.button} 
-										        	size="small"
-										        	variant="raised" 
+										        	style={styles.button}
 										        	color="secondary">
 										        	{calculatePercentage(question, "optionTwo")}%
 										        </Typography>

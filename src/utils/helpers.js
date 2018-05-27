@@ -19,7 +19,7 @@ export const filterQuestions = (authedUser, questions, filter) => {
 			Object.keys(questions).filter(qid => (
 				questions[qid].optionOne.votes.includes(authedUser) ||
 				questions[qid].optionTwo.votes.includes(authedUser)
-			))
+			)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 		)
 	}
 	else if (filter === QuestionFilter.UNANSWERED){
@@ -27,12 +27,12 @@ export const filterQuestions = (authedUser, questions, filter) => {
 			Object.keys(questions).filter(qid => (
 				!questions[qid].optionOne.votes.includes(authedUser) &&
 				!questions[qid].optionTwo.votes.includes(authedUser)
-			))
+			)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 		)
 	}
 	else {
 		return (
-			Object.keys(questions)
+			Object.keys(questions).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 		)
 	}
 }

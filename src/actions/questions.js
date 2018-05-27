@@ -1,38 +1,37 @@
 import {
-  _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
-} from "../utils/_DATA"
+} from "../utils/_DATA" 
 
 export const RECEIVE_QUESTIONS= 'RECEIVE_QUESTIONS'
 export const HANDLE_ADD_QUESTION = 'HANDLE_ADD_QUESTION'
 export const HANDLE_ADD_ANSWER = 'HANDLE_ADD_ANSWER'
 
-function saveQuestionAnswer(info){
+function saveQuestionAnswer(answer){
   return {
 	  	type: HANDLE_ADD_ANSWER,
-		info
+		answer
 	}
 }
 
-export function handleAnswerQuestion(info){
+export function handleAnswerQuestion(answer){
 	return (dispatch) => {
-		_saveQuestionAnswer(info).then(() => {
-			dispatch(saveQuestionAnswer(info))
+		_saveQuestionAnswer(answer).then(() => {
+			dispatch(saveQuestionAnswer(answer))
 		})
 	}
 }
 
-function saveQuestion(info){
+function saveQuestion(question){
 	return {
 		type: HANDLE_ADD_QUESTION,
-		info
+		question
 	}
 }
 
-export function handleSaveQuestion(info){
+export function handleSaveQuestion(question){
 	return (dispatch) => {
-		_saveQuestion(info).then((res)=> {
+		_saveQuestion(question).then((res)=> {
 			dispatch(saveQuestion(res))
 		})
 	}

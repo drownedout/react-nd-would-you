@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 
 const styles = {
   userListItem: {

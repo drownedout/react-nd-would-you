@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -52,7 +51,7 @@ class QuestionNew extends Component {
 		const {dispatch, authedUser} = this.props
 
 		dispatch(handleSaveQuestion({
-			author: this.props.authedUser,
+			author: authedUser,
 			optionOneText: this.state.optionOne,
 			optionTwoText: this.state.optionTwo
 		}))
