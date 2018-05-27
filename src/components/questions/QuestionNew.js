@@ -28,6 +28,7 @@ const styles = theme => ({
     minWidth: 275,
     padding: '2rem 4rem',
     textAlign: 'center',
+    marginTop: '2rem'
   },
 });
 
@@ -43,7 +44,6 @@ class QuestionNew extends Component {
 	    this.setState(() => ({
 	      [name]: value
 	    }))
-	    console.log(this.state)
 	 }
 
 	handleSubmit = e => {
